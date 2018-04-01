@@ -1,0 +1,12 @@
+<?php
+namespace App\Api--NAMESPACE--;
+use Illuminate\Http\Request;
+use App\Api\Base;
+class --NAME-- extends Base
+{
+    public function index( Request $request )
+    {
+        //
+
+    }
+}
