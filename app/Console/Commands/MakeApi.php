@@ -46,12 +46,17 @@ class MakeApi extends Command
         is_null($param) && exit($this->warn('Place enter the name you need create.'));
         // -- 参数解析
         $param          =   array_map( 'ucfirst' ,explode( '/', $param ) );
-        $filename       =   implode( '/', $param ).'.php';
-        $namespace      =   count($param) > 1 && ( $name=array_pop( $param ) )
-            ?   implode( '\\', $param )
-            :   '';
+        // ---- 文件全路径
+        $filename       =   $this->getApiPath( implode( '/', $param ).'.php' );
+        // ---- 文件所在目录
+        $dir            =   File::dirname( $filename );
+        // ---- 文件名称（sign）
+        $name           =   array_pop( $param );
+        // ---- 命名空间
+        $namespace      =   count($param) > 1 ? '\\'.implode( '\\', $param ) : '';
+
         // 是否已经存在
-        File::exists( $this->getApiPath($filename) ) && exit( $this->info('Has already exists.') );
+        File::exists( $filename ) && exit( $this->info('Has already exists.') );
         // 父级是否存在
         $this->createBase();
         // 文件信息
@@ -59,9 +64,12 @@ class MakeApi extends Command
         $fileinfo       =   str_replace( '--NAMESPACE--',$namespace, $fileinfo );
         $fileinfo       =   str_replace( '--NAME--', $name, $fileinfo );
 
+        // 创建文件目录
+        File::isDirectory( $dir ) || File::makeDirectory( $dir );
+        // 创建文件
         File::put( $filename, $fileinfo );
 
-        exit( $this->info('Created file successfully!')  );
+        exit( $this->info('Created api file successfully!')  );
     }
 
     protected function createBase ()
@@ -70,6 +78,8 @@ class MakeApi extends Command
         $baseFilename           =   $this->getApiPath('Base.php');
         // 是否已经存在
         if( File::exists ( $baseFilename ) ) return ;
+        // 创建目录
+        File::makeDirectory( $this->getApiPath(), 0755, true );
         // 文件信息
         $fileinfo               =   $this->getStub('api_base');
         // 创建文件
