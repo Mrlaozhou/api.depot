@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Events\SOS;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Event;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +48,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ( $exception instanceof FatalException )
+            event( new SOS() );
+
         return parent::render($request, $exception);
     }
 }

@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    token : {{ $token or 'Nothing' }}
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -13,8 +14,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
+        \App\Events\SOS::class => [
+            \App\Listeners\SOS\CallManager::class,          // 呼叫网管
+            \App\Listeners\SOS\ShutDown::class,             // “关机”
         ],
     ];
 

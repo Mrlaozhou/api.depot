@@ -20,7 +20,7 @@ class MakeApi extends Command
      *
      * @var string
      */
-    protected $description = 'Create api controller';
+    protected $description = 'Create a new api class';
 
     /**
      * Create a new command instance.

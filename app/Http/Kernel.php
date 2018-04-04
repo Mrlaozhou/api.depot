@@ -41,6 +41,7 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
             \App\Http\Middleware\FrontCheck::class,
+            \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,
         ],
     ];
 
