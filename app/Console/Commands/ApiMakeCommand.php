@@ -2,11 +2,10 @@
 
 namespace App\Console\Commands;
 
-use function Composer\Autoload\includeFile;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
-class MakeApi extends Command
+class ApiMakeCommand extends Command
 {
     /**
      * The name and signature of the console command.
